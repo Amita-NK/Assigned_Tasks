@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KNS Data Analytics</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-image: url('https://images.unsplash.com/photo-1557683316-973673baf926?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-attachment: fixed;
+        }
+        .table-container {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .table-container::-webkit-scrollbar {
+            width: 8px;
+        }
+        .table-container::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+        .table-container::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 4px;
+        }
+        .table-container::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+        tr:hover {
+            background-color: #f5f5f5;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center bg-cover bg-center">
+    <div class="bg-white bg-opacity-90 rounded-xl shadow-2xl p-8 w-full max-w-4xl mx-4">
+        <h1 class="text-3xl font-bold text-gray-800 mb-6 text-center">KNS Data Analytics</h1>
+        <div class="mb-6">
+            <button id="fetchPosts" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition duration-300">Fetch Posts</button>
+        </div>
+        <div class="bg-white p-6 rounded-lg shadow">
+            <h3 class="text-xl font-semibold text-gray-800 mb-4">Data Summary</h3>
+            <p id="summary" class="text-gray-600 mb-4">Click "Fetch Posts" to load data.</p>
+            <div id="postsTable" class="table-container">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-gray-200">
+                            <th class="p-3">ID</th>
+                            <th class="p-3">Title</th>
+                            <th class="p-3">Category</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody"></tbody>
+                </table>
+            </div>
+        </div>
+        <div id="postDetails" class="mt-6 p-4 bg-gray-100 rounded-lg hidden">
+            <h2 class="text-xl font-semibold text-gray-800 mb-2">Post Details</h2>
+            <h3 id="postTitle" class="text-lg font-medium text-gray-700"></h3>
+            <p id="postBody" class="text-gray-600 mt-2"></p>
+            <button id="closeDetails" class="mt-4 bg-red-500 text-white px-4 py-1 rounded hover:bg-red-600 transition duration-300">Close</button>
+        </div>
+    </div>
+    <script>
+        // Pseudo data simulating posts by category
+        const pseudoData = [
+            { id: 1, category: "Tech", title: "AI Innovations", body: "Exploring advancements in artificial intelligence." },
+            { id: 2, category: "Lifestyle", title: "Wellness Trends", body: "Tips for a healthier lifestyle in 2025." },
+            { id: 3, category: "News", title: "World Events", body: "Key global news updates." },
+            { id: 4, category: "Tech", title: "Quantum Computing", body: "The future of computing technology." },
+            { id: 5, category: "Lifestyle", title: "Minimalist Living", body: "Benefits of a minimalist lifestyle." },
+            { id: 6, category: "News", title: "Economic Trends", body: "Analysis of current market trends." }
+        ];
+
+        function fetchPosts() {
+            try {
+                alert('Pseudo data loaded successfully!');
+                displayData(pseudoData);
+            } catch (error) {
+                alert('Failed to load data: ' + error.message);
+            }
+        }
+
+        function displayData(data) {
+            // Update summary
+            const summary = document.getElementById('summary');
+            if (summary) {
+                const uniqueCategories = [...new Set(data.map(post => post.category))].length;
+                summary.textContent = `Total Posts: ${data.length} | Unique Categories: ${uniqueCategories}`;
+            }
+
+            // Update table
+            const tableBody = document.getElementById('tableBody');
+            if (tableBody) {
+                tableBody.innerHTML = '';
+                data.forEach(post => {
+                    const row = document.createElement('tr');
+                    row.className = 'border-b';
+                    row.innerHTML = `
+                        <td class="p-3">${post.id}</td>
+                        <td class="p-3">${post.title}</td>
+                        <td class="p-3">${post.category}</td>
+                    `;
+                    row.addEventListener('click', () => showPostDetails(post));
+                    tableBody.appendChild(row);
+                });
+            }
+        }
+
+        function showPostDetails(post) {
+            const details = document.getElementById('postDetails');
+            document.getElementById('postTitle').textContent = post.title;
+            document.getElementById('postBody').textContent = post.body;
+            details.classList.remove('hidden');
+        }
+
+        document.getElementById('fetchPosts').addEventListener('click', fetchPosts);
+
+        document.getElementById('closeDetails').addEventListener('click', () => {
+            document.getElementById('postDetails').classList.add('hidden');
+        });
+    </script>
+</body>
+</html>
