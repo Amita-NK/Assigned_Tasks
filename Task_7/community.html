@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FreeRADIUS - Community</title>
+  <script src="https://cdn.jsdelivr.net/npm/react@18.2.0/umd/react.production.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.20.15/babel.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .animate-button {
+      transition: transform 0.3s ease, background-color 0.3s ease;
+    }
+    .animate-button:hover {
+      transform: scale(1.1);
+    }
+    .bg-community {
+      background-image: url('https://images.unsplash.com/photo-1516321497487-e288fb19713f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+      background-size: cover;
+      background-position: center;
+    }
+  </style>
+</head>
+<body class="bg-gray-900 font-sans">
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState } = React;
+
+    const Navbar = () => {
+      const [isOpen, setIsOpen] = useState(false);
+
+      return (
+        <nav className="bg-blue-950 text-white sticky top-0 z-20 shadow-lg">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex justify-between h-16">
+              <div className="flex">
+                <div className="flex-shrink-0 flex items-center">
+                  <h1 className="text-2xl font-bold animate-pulse">FreeRADIUS</h1>
+                </div>
+                <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
+                  <a href="index.html" className="border-b-2 border-transparent hover:border-white px-3 py-2 text-sm font-medium transition duration-300">Home</a>
+                  <a href="features.html" className="border-b-2 border-transparent hover:border-white px-3 py-2 text-sm font-medium transition duration-300">Features</a>
+                  <a href="docs.html" className="border-b-2 border-transparent hover:border-white px-3 py-2 text-sm font-medium transition duration-300">Documentation</a>
+                  <a href="community.html" className="border-b-2 border-white px-3 py-2 text-sm font-medium">Community</a>
+                </div>
+              </div>
+              <div className="sm:hidden flex items-center">
+                <button onClick={() => setIsOpen(!isOpen)} className="text-white focus:outline-none">
+                  <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    {isOpen ? (
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                    ) : (
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7" />
+                    )}
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+          {isOpen && (
+            <div className="sm:hidden">
+              <div className="pt-2 pb-4 space-y-1 animate-slide-in">
+                <a href="index.html" className="block pl-3 pr-4 py-2 border-l-4 border-transparent hover:border-white text-base font-medium">Home</a>
+                <a href="features.html" className="block pl-3 pr-4 py-2 border-l-4 border-transparent hover:border-white text-base font-medium">Features</a>
+                <a href="docs.html" className="block pl-3 pr-4 py-2 border-l-4 border-transparent hover:border-white text-base font-medium">Documentation</a>
+                <a href="community.html" className="block pl-3 pr-4 py-2 border-l-4 border-white text-base font-medium">Community</a>
+              </div>
+            </div>
+          )}
+        </nav>
+      );
+    };
+
+    const Community = () => (
+      <section className="bg-community py-20 relative">
+        <div className="absolute inset-0 bg-blue-900 opacity-70"></div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <h2 className="text-4xl font-bold text-white text-center animate-slide-in">Join Our Community</h2>
+          <p className="mt-6 text-xl text-gray-200 text-center max-w-3xl mx-auto animate-slide-in delay-200">
+            Collaborate with developers and users worldwide to share knowledge and enhance FreeRADIUS.
+          </p>
+          <div className="mt-12 flex justify-center space-x-6">
+            <a href="https://freeradius.org/community/" className="bg-blue-600 text-white px-8 py-4 rounded-full font-medium animate-button hover:bg-blue-700">Mailing Lists</a>
+            <a href="https://freeradius.org/community/" className="bg-blue-600 text-white px-8 py-4 rounded-full font-medium animate-button hover:bg-blue-700">Forums</a>
+          </div>
+        </div>
+      </section>
+    );
+
+    const Footer = () => (
+      <footer className="bg-blue-950 text-white py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid md:grid-cols-3 gap-8">
+            <div>
+              <h3 className="text-lg font-semibold">FreeRADIUS</h3>
+              <p className="mt-4 text-gray-300">Powering secure authentication worldwide.</p>
+            </div>
+            <div>
+              <h3 className="text-lg font-semibold">Quick Links</h3>
+              <ul className="mt-4 space-y-2">
+                <li><a href="index.html" className="text-gray-300 hover:text-white transition duration-300">Home</a></li>
+                <li><a href="features.html" className="text-gray-300 hover:text-white transition duration-300">Features</a></li>
+                <li><a href="docs.html" className="text-gray-300 hover:text-white transition duration-300">Documentation</a></li>
+              </ul>
+            </div>
+            <div>
+              <h3 className="text-lg font-semibold">Contact</h3>
+              <p className="mt-4 text-gray-300">Join our community for support.</p>
+              <a href="https://freeradius.org/community/" className="mt-2 inline-block text-gray-300 hover:text-white transition duration-300">Get in Touch</a>
+            </div>
+          </div>
+          <div className="mt-8 border-t border-gray-700 pt-8 text-center">
+            <p className="text-gray-300">© 2025 FreeRADIUS. All rights reserved.</p>
+          </div>
+        </div>
+      </footer>
+    );
+
+    const App = () => (
+      <div>
+        <Navbar />
+        <Community />
+        <Footer />
+      </div>
+    );
+
+    ReactDOM.render(<App />, document.getElementById('root'));
+  </script>
+</body>
+</html>
